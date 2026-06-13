@@ -585,20 +585,32 @@ body {
 .pwa-screen {
   position: relative;
   width: 100%;
-  padding-top: 177.78%; /* 9:16 比例 */
+
+  /* ✅ 關鍵修正：改用現代比例寫法，取代 padding-top hack */
+  aspect-ratio: 9 / 16;
+
   border-radius: 16px;
   overflow: hidden;
+
   background: #1a1a2e;
   box-shadow: inset 0 0 10px rgba(0,0,0,0.4);
 }
 
+/* 影片本體 */
 .pwa-screen video {
   position: absolute;
   inset: 0;
+
   width: 100%;
   height: 100%;
+
   object-fit: contain;
-  border-radius: 16px;
+  object-position: center;
+
+  display: block;
+
+  /* ⚠️ 修正關鍵：避免 radius 疊加造成裁切錯覺 */
+  border-radius: 0;
   background: #000;
 }
 
@@ -606,19 +618,26 @@ body {
 .pwa-screen-placeholder {
   position: absolute;
   inset: 0;
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
   background: linear-gradient(160deg, #1a2e18, #2D4A2A);
   color: var(--color-green-lt);
+
   font-size: 0.7rem;
   text-align: center;
+
   padding: 12px;
   gap: 8px;
 }
-.pwa-screen-placeholder span { font-size: 2rem; }
 
+.pwa-screen-placeholder span {
+  font-size: 2rem;
+}
+   
 .pwa-label {
   font-family: var(--font-serif);
   font-weight: 700;
