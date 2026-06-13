@@ -368,38 +368,45 @@ body {
    A. 動漫卡牌區
    ====================================================== */
 .anime-cards-container {
-  position: relative;
   display: flex;
+  flex-wrap: nowrap;          /* 強制單行 */
   align-items: flex-end;
   justify-content: center;
-  gap: 0;          /* 間距由卡片 margin 控制 */
   padding: 20px 0 40px;
   overflow: visible;
+  gap: 0;
 }
 
 .anime-card {
   position: relative;
-  flex-shrink: 0;
-  width: 110px;
-  height: 160px;
+  flex: 0 0 auto;             /* 不允許壓縮 */
+  width: 100px;
+  height: 148px;
   border-radius: 10px;
   overflow: hidden;
   cursor: pointer;
   box-shadow: var(--shadow-card);
   border: 3px solid rgba(245,237,216,0.9);
-  margin: 0 -18px;  /* 負 margin → 卡牌重疊 */
+  /* 負 margin 讓牌重疊 */
+  margin-left: -22px;
+  margin-right: -22px;
   transition:
     transform 0.35s cubic-bezier(.34,1.56,.64,1),
-    margin 0.35s ease,
-    z-index 0s;
+    margin 0.35s ease;
   background: var(--color-bg-dark);
-  /* 堆疊感：依序輕微旋轉 */
 }
 
-/* 每張卡輕微旋轉，製造牌堆感 */
+/* 第一張不需要左負 margin */
+.anime-card:first-child {
+  margin-left: 0;
+}
+
+/* 堆疊感：依序輕微旋轉 */
 .anime-card:nth-child(odd)  { transform: rotate(-1.5deg); }
 .anime-card:nth-child(even) { transform: rotate(1deg); }
-.anime-card:nth-child(5)    { transform: rotate(0deg); z-index: 5; }
+.anime-card:nth-child(5)    { transform: rotate(0deg); }
+
+/* z-index 讓中間的牌在最上層（HTML inline style 設定） */
 
 .anime-card img {
   width: 100%;
@@ -409,24 +416,7 @@ body {
   transition: transform 0.35s ease;
 }
 
-/* ✨ Hover：放大自身，推開左右 */
-.anime-card:hover {
-  transform: rotate(0deg) scale(1.18) translateY(-14px) !important;
-  z-index: 20;
-  margin-left: 14px;
-  margin-right: 14px;
-}
-.anime-card:hover img {
-  transform: scale(1.05);
-}
-
-/* 把 hover 卡片左側的推左、右側的推右 */
-.anime-card:hover ~ .anime-card {
-  transform: translateX(14px) rotate(1deg);
-}
-/* 前面的卡往左推（需要 JS 輔助，見下方 script） */
-
-/* 卡片遮罩光澤 */
+/* 卡片光澤遮罩 */
 .anime-card::after {
   content: '';
   position: absolute;
@@ -435,7 +425,7 @@ body {
   pointer-events: none;
 }
 
-/* 圖片佔位符樣式（未放圖片時顯示） */
+/* 圖片佔位符樣式 */
 .anime-card-placeholder {
   width: 100%;
   height: 100%;
@@ -454,10 +444,14 @@ body {
 
 /* RWD：手機版卡牌縮小 */
 @media (max-width: 600px) {
-  .anime-card { width: 78px; height: 114px; margin: 0 -12px; }
-  .anime-card:hover { margin-left: 8px; margin-right: 8px; }
+  .anime-card {
+    width: 72px;
+    height: 108px;
+    margin-left: -16px;
+    margin-right: -16px;
+  }
+  .anime-card:first-child { margin-left: 0; }
 }
-
 /* ======================================================
    B. 演唱會日程
    ====================================================== */
@@ -1310,30 +1304,45 @@ function checkPassword() {
 
 // ============================================================
 // 🃏 動漫牌卡「推開」特效
-// 當 hover 某張牌時，把它左邊的牌往左推
+// hover 時：自身放大，左邊的牌往左推，右邊的牌往右推
 // ============================================================
 const cards = document.querySelectorAll('.anime-card');
 
+// 每張牌的預設旋轉角度
+function defaultRotate(idx) {
+  if (idx === 4) return 0;
+  return idx % 2 === 0 ? -1.5 : 1;
+}
+
 cards.forEach((card, i) => {
   card.addEventListener('mouseenter', () => {
-    // 讓當前牌左側的牌往左移
-    for (let j = 0; j < i; j++) {
-      cards[j].style.transform = `translateX(-14px) rotate(${j % 2 === 0 ? -1.5 : 1}deg)`;
-      cards[j].style.transition = 'transform 0.35s ease, margin 0.35s ease';
-    }
-    // 右側的牌往右移（CSS 的 ~ 選擇器已處理，這裡再確保）
-    for (let j = i + 1; j < cards.length; j++) {
-      cards[j].style.transform = `translateX(14px) rotate(${j % 2 === 0 ? -1.5 : 1}deg)`;
-      cards[j].style.transition = 'transform 0.35s ease, margin 0.35s ease';
-    }
+    cards.forEach((c, j) => {
+      if (j < i) {
+        // 左側的牌：往左推
+        c.style.transform = `translateX(-20px) rotate(${defaultRotate(j)}deg)`;
+        c.style.marginLeft  = j === 0 ? '0px' : '-22px';
+        c.style.marginRight = '-22px';
+      } else if (j > i) {
+        // 右側的牌：往右推
+        c.style.transform = `translateX(20px) rotate(${defaultRotate(j)}deg)`;
+        c.style.marginLeft  = '-22px';
+        c.style.marginRight = '-22px';
+      } else {
+        // 自身：放大 + 上移
+        c.style.transform = `rotate(0deg) scale(1.2) translateY(-16px)`;
+        c.style.zIndex = '20';
+        c.style.marginLeft  = i === 0 ? '12px' : '4px';
+        c.style.marginRight = '4px';
+      }
+    });
   });
 
   card.addEventListener('mouseleave', () => {
-    // 恢復所有牌的初始旋轉
-    cards.forEach((c, idx) => {
-      let defaultRotate = idx % 2 === 0 ? -1.5 : 1;
-      if (idx === 4) defaultRotate = 0; // 中間牌不旋轉
-      c.style.transform = `rotate(${defaultRotate}deg)`;
+    cards.forEach((c, j) => {
+      c.style.transform  = `rotate(${defaultRotate(j)}deg)`;
+      c.style.zIndex     = '';
+      c.style.marginLeft  = j === 0 ? '0px' : '-22px';
+      c.style.marginRight = '-22px';
     });
   });
 });
