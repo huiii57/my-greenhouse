@@ -661,108 +661,274 @@ body {
 /* ======================================================
    D. 願望瓶區
    ====================================================== */
-.wish-section-inner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 32px;
-}
+.bottle-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3rem 1rem 2.5rem;
+    font-family: inherit;
+  }
+  .bottle-wrap {
+    position: relative;
+    width: 120px;
+    height: 340px;
+    margin-bottom: 1.5rem;
+  }
 
-/* SVG 瓶子容器 */
-.wish-bottle-wrap {
-  position: relative;
-  width: 240px;
-}
+  /* 木塞 */
+  .bottle-cork {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 22px;
+    height: 18px;
+    background: linear-gradient(180deg, #C8935A 0%, #A0693A 60%, #8B5A2B 100%);
+    border-radius: 4px 4px 3px 3px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.30), inset 0 1px 2px rgba(255,220,160,0.40);
+    z-index: 10;
+  }
 
-.wish-bottle-wrap svg {
-  width: 100%;
-  height: auto;
-  filter: drop-shadow(0 8px 24px rgba(139,94,60,0.3));
-}
+  /* 瓶頸 */
+  .bottle-neck {
+    position: absolute;
+    top: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 26px;
+    height: 60px;
+    background: rgba(200,235,255,0.13);
+    border-left:  1.5px solid rgba(255,255,255,0.45);
+    border-right: 1.5px solid rgba(255,255,255,0.20);
+    border-bottom: none;
+    backdrop-filter: blur(2px);
+    z-index: 5;
+  }
+  .bottle-neck::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 6px;
+    width: 3px; height: 100%;
+    background: linear-gradient(180deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.10) 100%);
+    border-radius: 2px;
+  }
 
-/* 卷軸按鈕（位於 SVG 上方的 HTML 按鈕） */
-.scroll-btn {
-  position: absolute;
-  width: 44px; height: 44px;
-  cursor: pointer;
-  border: none;
-  background: transparent;
-  padding: 0;
-  transition: transform 0.25s;
-  /* 具體位置在 inline style 設定 */
-}
-.scroll-btn:hover { transform: scale(1.15) rotate(-5deg); }
+  /* 瓶肩（三角填色） */
+  .bottle-shoulder {
+    position: absolute;
+    top: 72px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0; height: 0;
+    border-left:  23px solid transparent;
+    border-right: 23px solid transparent;
+    border-bottom: 30px solid rgba(200,235,255,0.13);
+    z-index: 4;
+  }
 
-/* 卷軸圖示（用 SVG inline 畫） */
-.scroll-icon {
-  width: 44px; height: 44px;
-}
+  /* 瓶肩邊框線（左右斜邊） */
+  .bottle-shoulder-border {
+    position: absolute;
+    top: 72px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 72px; height: 30px;
+    overflow: hidden;
+    z-index: 3;
+  }
+  .bottle-shoulder-border::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 1.5px; height: 42px;
+    background: rgba(255,255,255,0.45);
+    transform-origin: bottom left;
+    transform: rotate(30deg);
+  }
+  .bottle-shoulder-border::after {
+    content: '';
+    position: absolute;
+    bottom: 0; right: 0;
+    width: 1.5px; height: 42px;
+    background: rgba(255,255,255,0.20);
+    transform-origin: bottom right;
+    transform: rotate(-30deg);
+  }
 
-/* 對話框彈出 */
-.wish-popup {
-  position: fixed;
-  inset: 0;
-  z-index: 5000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-  background: rgba(28,45,24,0.45);
-  backdrop-filter: blur(4px);
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s, visibility 0.3s;
-}
-.wish-popup.show {
-  opacity: 1;
-  visibility: visible;
-}
+  /* 瓶身 */
+  .bottle-body {
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 92px;
+    height: 222px;
+    background: rgba(200,235,255,0.12);
+    border-left:   1.5px solid rgba(255,255,255,0.45);
+    border-right:  1.5px solid rgba(255,255,255,0.18);
+    border-top:    none;
+    border-bottom: 1.5px solid rgba(255,255,255,0.30);
+    border-radius: 0 0 8px 8px;
+    backdrop-filter: blur(2px);
+    box-shadow:
+      inset  3px 0  8px rgba(255,255,255,0.06),
+      inset -3px 0  8px rgba(0,0,0,0.08),
+      inset  0  -6px 14px rgba(0,0,0,0.10);
+    z-index: 5;
+    overflow: hidden;
+  }
+  /* 左側主高光線 */
+  .bottle-body::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 10px;
+    width: 6px; height: 100%;
+    background: linear-gradient(180deg,
+      rgba(255,255,255,0.42) 0%,
+      rgba(255,255,255,0.08) 50%,
+      rgba(255,255,255,0.18) 100%);
+    border-radius: 3px;
+  }
+  /* 右側次高光線 */
+  .bottle-body::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 8px;
+    width: 2px; height: 70%;
+    background: linear-gradient(180deg, rgba(255,255,255,0.18) 0%, transparent 100%);
+    border-radius: 1px;
+  }
 
-.wish-popup-card {
-  background: linear-gradient(145deg, #FFF8E8, #F5EDD8);
-  border: 2px solid rgba(196,149,106,0.5);
-  border-radius: 18px;
-  padding: 36px 32px 28px;
-  max-width: 340px;
-  width: 100%;
-  text-align: center;
-  position: relative;
-  box-shadow: 0 16px 48px rgba(0,0,0,0.25);
-  transform: scale(0.88);
-  transition: transform 0.35s cubic-bezier(.34,1.56,.64,1);
-}
-.wish-popup.show .wish-popup-card {
-  transform: scale(1);
-}
+  /* ── 卷軸群組 ── */
+  .scrolls-container {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 78px;
+    height: 195px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 4px;
+    z-index: 6;
+  }
 
-.wish-popup-deco {
-  font-size: 2.2rem;
-  margin-bottom: 12px;
-  display: block;
-}
+  .scroll {
+    position: relative;
+    width: 20px;
+    height: 160px;
+    background: linear-gradient(180deg, #E6C280 0%, #F5DEB3 30%, #EDD99A 70%, #E6C280 100%);
+    border-radius: 3px;
+    cursor: pointer;
+    transition: transform 0.22s ease, filter 0.22s ease;
+    box-shadow:
+      -3px 0 5px rgba(0,0,0,0.18),
+       3px 0 5px rgba(0,0,0,0.18),
+      inset 1px 0 3px rgba(255,240,180,0.50);
+    flex-shrink: 0;
+  }
+  /* 上端捲曲 */
+  .scroll::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 14px;
+    background: radial-gradient(ellipse at center, #C8A055 0%, #E6C280 60%, transparent 100%);
+    border-radius: 50% 50% 0 0 / 80% 80% 0 0;
+    border-bottom: 1px solid rgba(0,0,0,0.12);
+  }
+  /* 下端捲曲 */
+  .scroll::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 14px;
+    background: radial-gradient(ellipse at center, #C8A055 0%, #E6C280 60%, transparent 100%);
+    border-radius: 0 0 50% 50% / 0 0 80% 80%;
+    border-top: 1px solid rgba(0,0,0,0.12);
+  }
 
-.wish-popup-text {
-  font-family: var(--font-serif);
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--color-green-dk);
-  line-height: 1.6;
-}
+  /* 三根卷軸各自的傾斜 */
+  .scroll:nth-child(1) { transform: rotate(-4deg) translateY(-8px);  height: 155px; }
+  .scroll:nth-child(2) { transform: rotate( 1deg);                    height: 165px; }
+  .scroll:nth-child(3) { transform: rotate( 5deg) translateY(-4px);  height: 150px; }
 
-.wish-popup-close {
-  margin-top: 20px;
-  display: inline-block;
-  padding: 9px 24px;
-  background: var(--color-green-dk);
-  color: var(--color-gold-lt);
-  border: none;
-  border-radius: 99px;
-  font-family: var(--font-serif);
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: filter 0.2s;
-}
-.wish-popup-close:hover { filter: brightness(1.2); }
+  /* Hover 發光 + 上浮 */
+  .scroll:hover { filter: brightness(1.15) drop-shadow(0 0 7px rgba(240,200,100,0.70)); z-index: 10; }
+  .scroll:nth-child(1):hover { transform: rotate(-4deg) translateY(-13px); }
+  .scroll:nth-child(2):hover { transform: rotate( 1deg) translateY(-5px);  }
+  .scroll:nth-child(3):hover { transform: rotate( 5deg) translateY(-9px);  }
+
+  /* 提示文字 */
+  .bottle-hint {
+    font-size: 14px;
+    color: #888;
+    text-align: center;
+    max-width: 280px;
+    line-height: 1.7;
+  }
+
+  /* ── Modal 彈窗 ── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.50);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-overlay.active { display: flex; }
+
+  .modal-box {
+    position: relative;
+    width: min(320px, 88vw);
+    background: linear-gradient(160deg, #FDF6E3 0%, #F5DEB3 50%, #EDD99A 100%);
+    border-radius: 8px;
+    padding: 2.2rem 2rem;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.60);
+    border: 1.5px solid rgba(180,140,60,0.35);
+    text-align: center;
+    animation: modalIn 0.25s ease;
+  }
+  @keyframes modalIn {
+    from { opacity: 0; transform: scale(0.88) translateY(12px); }
+    to   { opacity: 1; transform: scale(1)    translateY(0);    }
+  }
+  /* 內框裝飾線 */
+  .modal-box::before {
+    content: '';
+    position: absolute;
+    top: 9px; left: 9px; right: 9px; bottom: 9px;
+    border: 1px solid rgba(180,140,60,0.22);
+    border-radius: 5px;
+    pointer-events: none;
+  }
+  .modal-scroll-icon {
+    font-size: 28px;
+    margin-bottom: 0.8rem;
+  }
+  .modal-content {
+    font-size: 18px;
+    color: #5C3D11;
+    font-weight: 500;
+    line-height: 1.65;
+    margin: 0 0 1.4rem;
+    font-family: Georgia, 'Times New Roman', serif;
+  }
+  .modal-close {
+    background: rgba(139,90,43,0.12);
+    border: 1px solid rgba(139,90,43,0.30);
+    border-radius: 20px;
+    padding: 7px 22px;
+    font-size: 13px;
+    color: #7A4F1D;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .modal-close:hover { background: rgba(139,90,43,0.22); }
+
 
 /* ======================================================
    頁尾
@@ -1038,132 +1204,35 @@ body {
   <!-- =========================================
        D. 願望瓶
        ========================================= -->
-  <section class="section section-alt" id="sec-wish">
-    <div class="section-header">
-      <p class="section-eyebrow">小小願望</p>
-      <h2 class="section-title">一些碎碎念與願望</h2>
+ <section class="bottle-section">
+  <div class="bottle-wrap">
+    <!-- 木塞 -->
+    <div class="bottle-cork"></div>
+    <!-- 瓶頸 -->
+    <div class="bottle-neck"></div>
+    <!-- 瓶肩 -->
+    <div class="bottle-shoulder"></div>
+    <div class="bottle-shoulder-border"></div>
+    <!-- 瓶身（含卷軸） -->
+    <div class="bottle-body">
+      <div class="scrolls-container">
+        <div class="scroll" onclick="bottleOpenModal(0)" role="button" aria-label="查看第一個心願"></div>
+        <div class="scroll" onclick="bottleOpenModal(1)" role="button" aria-label="查看第二個心願"></div>
+        <div class="scroll" onclick="bottleOpenModal(2)" role="button" aria-label="查看第三個心願"></div>
+      </div>
     </div>
+  </div>
+  <p class="bottle-hint">🌿 點擊瓶中的卷軸，看看裡面藏著什麼心願…</p>
+</section>
 
-    <div class="wish-section-inner">
-
-      <!-- 願望瓶 SVG + 卷軸按鈕 -->
-      <div class="wish-bottle-wrap">
-
-        <!-- 手繪風願望瓶 SVG -->
-        <svg viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <!-- 瓶子主體漸層定義 -->
-          <defs>
-            <linearGradient id="bottleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#C4956A" stop-opacity="0.35"/>
-              <stop offset="50%" stop-color="#E8D5A3" stop-opacity="0.55"/>
-              <stop offset="100%" stop-color="#8B5E3C" stop-opacity="0.4"/>
-            </linearGradient>
-            <linearGradient id="corkGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stop-color="#C4956A"/>
-              <stop offset="100%" stop-color="#8B5E3C"/>
-            </linearGradient>
-          </defs>
-
-          <!-- 瓶身 -->
-          <path
-            d="M72 80 Q60 95 55 120 Q48 155 50 195 Q52 250 100 258 Q148 250 150 195 Q152 155 145 120 Q140 95 128 80 Z"
-            fill="url(#bottleGrad)"
-            stroke="#8B5E3C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
-          />
-          <!-- 瓶身光澤 -->
-          <path
-            d="M75 100 Q68 130 68 165"
-            stroke="rgba(255,255,255,0.5)" stroke-width="3" fill="none" stroke-linecap="round"
-          />
-
-          <!-- 瓶頸 -->
-          <path
-            d="M78 80 Q78 62 84 55 L116 55 Q122 62 122 80"
-            fill="#C4956A" stroke="#8B5E3C" stroke-width="2" fill-opacity="0.7"
-          />
-
-          <!-- 軟木塞 -->
-          <rect x="82" y="42" width="36" height="16" rx="4" fill="url(#corkGrad)" stroke="#6B4423" stroke-width="1.5"/>
-          <!-- 軟木塞紋路 -->
-          <line x1="87" y1="46" x2="87" y2="54" stroke="#A0713F" stroke-width="1" opacity="0.6"/>
-          <line x1="94" y1="46" x2="94" y2="54" stroke="#A0713F" stroke-width="1" opacity="0.6"/>
-          <line x1="101" y1="46" x2="101" y2="54" stroke="#A0713F" stroke-width="1" opacity="0.6"/>
-          <line x1="108" y1="46" x2="108" y2="54" stroke="#A0713F" stroke-width="1" opacity="0.6"/>
-
-          <!-- 瓶身裡的裝飾植物（背景感） -->
-          <path d="M100 240 Q85 210 88 180 Q92 150 100 130 Q108 150 112 180 Q115 210 100 240Z"
-            fill="#4A7C59" fill-opacity="0.12"/>
-          <path d="M88 200 Q75 185 78 165" stroke="#4A7C59" stroke-width="1.5" fill="none" opacity="0.2" stroke-linecap="round"/>
-          <path d="M112 195 Q125 180 122 160" stroke="#2D4A2A" stroke-width="1.5" fill="none" opacity="0.2" stroke-linecap="round"/>
-
-          <!-- 卷軸 1（左上） -->
-          <!-- 位置：瓶身左側中上 -->
-          <g transform="translate(67, 130) rotate(-15)">
-            <rect x="-16" y="-8" width="32" height="16" rx="3" fill="#D4A847" stroke="#8B5E3C" stroke-width="1.5"/>
-            <ellipse cx="-16" cy="0" rx="5" ry="8" fill="#C49040" stroke="#6B4423" stroke-width="1"/>
-            <ellipse cx="16" cy="0" rx="5" ry="8" fill="#C49040" stroke="#6B4423" stroke-width="1"/>
-            <line x1="-8" y1="-2" x2="8" y2="-2" stroke="#8B5E3C" stroke-width="0.8" opacity="0.5"/>
-            <line x1="-8" y1="2" x2="8" y2="2" stroke="#8B5E3C" stroke-width="0.8" opacity="0.5"/>
-          </g>
-
-          <!-- 卷軸 2（中央） -->
-          <g transform="translate(100, 175) rotate(5)">
-            <rect x="-16" y="-8" width="32" height="16" rx="3" fill="#D4A847" stroke="#8B5E3C" stroke-width="1.5"/>
-            <ellipse cx="-16" cy="0" rx="5" ry="8" fill="#C49040" stroke="#6B4423" stroke-width="1"/>
-            <ellipse cx="16" cy="0" rx="5" ry="8" fill="#C49040" stroke="#6B4423" stroke-width="1"/>
-            <line x1="-8" y1="-2" x2="8" y2="-2" stroke="#8B5E3C" stroke-width="0.8" opacity="0.5"/>
-            <line x1="-8" y1="2" x2="8" y2="2" stroke="#8B5E3C" stroke-width="0.8" opacity="0.5"/>
-          </g>
-
-          <!-- 卷軸 3（右下） -->
-          <g transform="translate(128, 155) rotate(20)">
-            <rect x="-16" y="-8" width="32" height="16" rx="3" fill="#D4A847" stroke="#8B5E3C" stroke-width="1.5"/>
-            <ellipse cx="-16" cy="0" rx="5" ry="8" fill="#C49040" stroke="#6B4423" stroke-width="1"/>
-            <ellipse cx="16" cy="0" rx="5" ry="8" fill="#C49040" stroke="#6B4423" stroke-width="1"/>
-            <line x1="-8" y1="-2" x2="8" y2="-2" stroke="#8B5E3C" stroke-width="0.8" opacity="0.5"/>
-            <line x1="-8" y1="2" x2="8" y2="2" stroke="#8B5E3C" stroke-width="0.8" opacity="0.5"/>
-          </g>
-
-          <!-- 底部標籤紙 -->
-          <rect x="70" y="220" width="60" height="26" rx="4"
-            fill="#F5EDD8" stroke="#C4956A" stroke-width="1.5" opacity="0.9"/>
-          <text x="100" y="237" text-anchor="middle"
-            font-size="12" fill="#8B5E3C" font-family="serif">願望瓶 ✿</text>
-        </svg>
-
-        <!-- 透明點擊區塊（覆蓋在卷軸位置上） -->
-        <!-- 卷軸 1 按鈕 -->
-        <button
-          class="scroll-btn"
-          style="left: 22%; top: 41%;"
-          onclick="openWish(0)"
-          aria-label="打開第一個卷軸"
-        ></button>
-
-        <!-- 卷軸 2 按鈕 -->
-        <button
-          class="scroll-btn"
-          style="left: 38%; top: 54%;"
-          onclick="openWish(1)"
-          aria-label="打開第二個卷軸"
-        ></button>
-
-        <!-- 卷軸 3 按鈕 -->
-        <button
-          class="scroll-btn"
-          style="left: 56%; top: 47%;"
-          onclick="openWish(2)"
-          aria-label="打開第三個卷軸"
-        ></button>
-
-      </div><!-- /wish-bottle-wrap -->
-
-      <p style="font-size:0.82rem; color: var(--color-text-muted); text-align:center;">
-        🌿 點擊瓶中的卷軸，看看裡面藏著什麼心願…
-      </p>
-
-    </div><!-- /wish-section-inner -->
-  </section>
+<!-- Modal -->
+<div class="modal-overlay" id="bottleModal" onclick="if(event.target===this)bottleCloseModal()">
+  <div class="modal-box">
+    <div class="modal-scroll-icon">📜</div>
+    <p class="modal-content" id="bottleModalText"></p>
+    <button class="modal-close" onclick="bottleCloseModal()">收起卷軸</button>
+  </div>
+</div>
 
   <!-- ─── 頁尾 ─── -->
   <footer class="site-footer">
@@ -1280,37 +1349,28 @@ cards.forEach((card, i) => {
 // ============================================================
 // 📜 願望瓶卷軸 — 彈出對話框
 // ============================================================
-const wishMessages = [
-  { deco: '✈️', text: '好想去首爾啊！\n想偶遇明星、逛市場吃好吃的…\n今年再看看！' },
-  { deco: '💜', text: '距離我的偶像退伍\n還有 270 幾天…\n倒數中' },
-  { deco: '☕', text: '美式咖啡好好喝！\n每天一杯，快樂一整天 🧊' },
-];
+(function() {
+  var wishes = [
+    '好想去首爾 ✈️',
+    'BTS 出道滿 13 週年了 🎉',
+    '冰美式咖啡好好喝 ☕'
+  ];
 
-const wishPopup    = document.getElementById('wish-popup');
-const wishPopupDeco= document.getElementById('wish-popup-deco');
-const wishPopupText= document.getElementById('wish-popup-text');
+  window.bottleOpenModal = function(i) {
+    document.getElementById('bottleModalText').textContent = wishes[i];
+    document.getElementById('bottleModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  };
 
-function openWish(index) {
-  const wish = wishMessages[index];
-  wishPopupDeco.textContent = wish.deco;
-  // 把換行符號轉成 <br>
-  wishPopupText.innerHTML = wish.text.replace(/\n/g, '<br>');
-  wishPopup.classList.add('show');
-}
+  window.bottleCloseModal = function() {
+    document.getElementById('bottleModal').classList.remove('active');
+    document.body.style.overflow = '';
+  };
 
-function closeWish() {
-  wishPopup.classList.remove('show');
-}
-
-// 點擊背景也能關閉
-wishPopup.addEventListener('click', (e) => {
-  if (e.target === wishPopup) closeWish();
-});
-
-// Esc 鍵關閉
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') closeWish();
-});
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') window.bottleCloseModal();
+  });
+})();
 </script>
 
 </body>
