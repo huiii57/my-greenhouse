@@ -370,11 +370,12 @@ body {
 .anime-cards-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
+  gap: 14px;
   max-width: 540px;
   margin: 0 auto;
   padding: 8px 0 24px;
 }
+
 .anime-card {
   position: relative;
   width: 100%;
@@ -387,17 +388,20 @@ body {
   background: var(--color-bg-dark);
   transition: transform 0.3s cubic-bezier(.34,1.56,.64,1), box-shadow 0.3s ease;
 }
+
 .anime-card:hover {
-  transform: scale(1.05);
+  transform: scale(1.08);
   box-shadow: 0 10px 32px rgba(44,32,21,0.28);
   z-index: 2;
 }
+
 .anime-card img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
 }
+
 .anime-card::after {
   content: '';
   position: absolute;
@@ -405,6 +409,7 @@ body {
   background: linear-gradient(160deg, rgba(255,255,255,0.1) 0%, transparent 50%);
   pointer-events: none;
 }
+
 .anime-card-placeholder {
   width: 100%;
   height: 100%;
@@ -420,6 +425,7 @@ body {
   gap: 6px;
 }
 .anime-card-placeholder span { font-size: 1.8rem; }
+
 /* ======================================================
    B. 演唱會日程
    ====================================================== */
@@ -771,6 +777,9 @@ body {
   .hero { padding: 56px 16px 36px; }
   .section { padding: 44px 16px; }
   .gate-card { padding: 36px 24px 28px; }
+  .anime-cards-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 </style>
 </head>
@@ -865,72 +874,45 @@ body {
 
       <!-- ======================================================
            🖼️ 動漫圖片替換說明：
-           把下方 9 個 <img> 標籤的 src 屬性換成你的圖片路徑。
+           把下方 9 個 <div class="anime-card"> 裡的 src 屬性換成你的圖片路徑。
            例如：src="images/anime1.jpg"
            圖片建議使用直式（寬:高 ≈ 2:3），如 400x600px
            ====================================================== -->
 
       <div class="anime-card" style="z-index:1;">
-        <!-- 🖼️ 動漫圖 1：請替換 src，例如 src="images/anime1.jpg" -->
         <img src="images/anime1.jpg" alt="動漫圖 1" />
-          <span>🎌</span>動漫圖 1
-        </div>
       </div>
 
       <div class="anime-card" style="z-index:2;">
-        <!-- 🖼️ 動漫圖 2：請替換 src -->
         <img src="images/anime2.jpg" alt="動漫圖 2" />
-          <span>🎌</span>動漫圖 2
-        </div>
       </div>
 
       <div class="anime-card" style="z-index:3;">
-        <!-- 🖼️ 動漫圖 3：請替換 src -->
         <img src="images/anime3.jpg" alt="動漫圖 3" />
-          <span>🎌</span>動漫圖 3
-        </div>
       </div>
 
       <div class="anime-card" style="z-index:4;">
-        <!-- 🖼️ 動漫圖 4：請替換 src -->
         <img src="images/anime4.jpg" alt="動漫圖 4" />
-          <span>🎌</span>動漫圖 4
-        </div>
       </div>
 
       <div class="anime-card" style="z-index:5;">
-        <!-- 🖼️ 動漫圖 5（中央牌，z-index 最高）：請替換 src -->
         <img src="images/anime5.jpg" alt="動漫圖 5" />
-          <span>🎌</span>動漫圖 5
-        </div>
       </div>
 
       <div class="anime-card" style="z-index:4;">
-        <!-- 🖼️ 動漫圖 6：請替換 src -->
         <img src="images/anime6.jpg" alt="動漫圖 6" />
-          <span>🎌</span>動漫圖 6
-        </div>
       </div>
 
       <div class="anime-card" style="z-index:3;">
-        <!-- 🖼️ 動漫圖 7：請替換 src -->
         <img src="images/anime7.jpg" alt="動漫圖 7" />
-          <span>🎌</span>動漫圖 7
-        </div>
       </div>
 
       <div class="anime-card" style="z-index:2;">
-        <!-- 🖼️ 動漫圖 8：請替換 src -->
         <img src="images/anime8.jpg" alt="動漫圖 8" />
-          <span>🎌</span>動漫圖 8
-        </div>
       </div>
 
       <div class="anime-card" style="z-index:1;">
-        <!-- 🖼️ 動漫圖 9：請替換 src -->
         <img src="images/anime9.jpg" alt="動漫圖 9" />
-          <span>🎌</span>動漫圖 9
-        </div>
       </div>
 
     </div><!-- /anime-cards-container -->
@@ -993,6 +975,7 @@ body {
       </li>
 
     </ul>
+
   </section>
 
   <!-- 裝飾分隔 -->
@@ -1001,308 +984,173 @@ body {
   </div>
 
   <!-- =========================================
-       C. PWA 作品
+       C. PWA 作品區
        ========================================= -->
   <section class="section" id="sec-pwa">
     <div class="section-header">
-      <p class="section-eyebrow">創作紀錄</p>
-      <h2 class="section-title">用 Claude 做了兩個 PWA</h2>
+      <p class="section-eyebrow">作品集</p>
+      <h2 class="section-title">PWA 作品區</h2>
     </div>
 
     <div class="pwa-grid">
 
-      <!-- 左：媽媽的菜單 -->
       <div class="pwa-item">
         <div class="pwa-frame">
           <div class="pwa-screen">
-            <!-- =====================================================
-                 🎬 影片替換說明（左）：
-                 把下方 <video> 的 src 換成你的影片路徑。
-                 例如：src="videos/mom-menu.mp4"
-                 建議直式錄影（9:16），格式 mp4
-                 ===================================================== -->
-            <video
-              src="videos/mom-menu.mp4"
-              autoplay muted loop playsinline
-              poster="videos/mom-menu-poster.jpg">
+            <video controls playsinline muted loop preload="metadata">
+              <source src="videos/pwa1.mp4" type="video/mp4">
+              您的瀏覽器不支援 HTML5 video
             </video>
+            <div class="pwa-screen-placeholder">
+              <span>📱</span>
+              <p>PWA 作品 1</p>
+            </div>
           </div>
         </div>
-        <p class="pwa-label">媽媽的菜單 🥢</p>
+        <div class="pwa-label">作品一號</div>
+        <div class="pwa-note">React 預算管理工具</div>
       </div>
 
-      <!-- 右：旅遊日誌 -->
       <div class="pwa-item">
         <div class="pwa-frame">
           <div class="pwa-screen">
-            <!-- =====================================================
-                 🎬 影片替換說明（右）：
-                 例如：src="videos/travel-journal.mp4"
-                 ===================================================== -->
-            <video
-              src="videos/travel-journal.mp4"
-              autoplay muted loop playsinline
-              poster="videos/travel-poster.jpg">
+            <video controls playsinline muted loop preload="metadata">
+              <source src="videos/pwa2.mp4" type="video/mp4">
+              您的瀏覽器不支援 HTML5 video
             </video>
+            <div class="pwa-screen-placeholder">
+              <span>⚡</span>
+              <p>PWA 作品 2</p>
+            </div>
           </div>
         </div>
-        <p class="pwa-label">旅遊日誌 🗺️</p>
-        <p class="pwa-note">開發完了，但還沒有新的旅遊資料 XD</p>
+        <div class="pwa-label">作品二號</div>
+        <div class="pwa-note">待辦事項應用</div>
       </div>
 
     </div><!-- /pwa-grid -->
+
   </section>
 
-  <!-- 裝飾分隔 -->
-  <div class="vine-divider" aria-hidden="true">
-    <svg width="40" height="20" viewBox="0 0 40 20"><path d="M2 10 Q10 18 20 10 Q30 2 38 10" stroke="#C4956A" stroke-width="1.5" fill="none"/></svg>
-  </div>
-
   <!-- =========================================
-       D. 願望瓶
+       D. 願望瓶區
        ========================================= -->
-  <section class="section section-alt" id="sec-wish">
+  <section class="section" id="sec-wishes">
     <div class="section-header">
-      <p class="section-eyebrow">小小願望</p>
-      <h2 class="section-title">一些碎碎念與願望</h2>
+      <p class="section-eyebrow">祕密角落</p>
+      <h2 class="section-title">願望瓶</h2>
     </div>
 
     <div class="wish-section-inner">
 
-      <!-- 願望瓶 SVG + 卷軸按鈕 -->
       <div class="wish-bottle-wrap">
 
-        <!-- 手繪風願望瓶 SVG -->
-        <svg viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <!-- 瓶子主體漸層定義 -->
-          <defs>
-            <linearGradient id="bottleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#C4956A" stop-opacity="0.35"/>
-              <stop offset="50%" stop-color="#E8D5A3" stop-opacity="0.55"/>
-              <stop offset="100%" stop-color="#8B5E3C" stop-opacity="0.4"/>
-            </linearGradient>
-            <linearGradient id="corkGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stop-color="#C4956A"/>
-              <stop offset="100%" stop-color="#8B5E3C"/>
-            </linearGradient>
-          </defs>
-
-          <!-- 瓶身 -->
-          <path
-            d="M72 80 Q60 95 55 120 Q48 155 50 195 Q52 250 100 258 Q148 250 150 195 Q152 155 145 120 Q140 95 128 80 Z"
-            fill="url(#bottleGrad)"
-            stroke="#8B5E3C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
-          />
-          <!-- 瓶身光澤 -->
-          <path
-            d="M75 100 Q68 130 68 165"
-            stroke="rgba(255,255,255,0.5)" stroke-width="3" fill="none" stroke-linecap="round"
-          />
-
-          <!-- 瓶頸 -->
-          <path
-            d="M78 80 Q78 62 84 55 L116 55 Q122 62 122 80"
-            fill="#C4956A" stroke="#8B5E3C" stroke-width="2" fill-opacity="0.7"
-          />
-
-          <!-- 軟木塞 -->
-          <rect x="82" y="42" width="36" height="16" rx="4" fill="url(#corkGrad)" stroke="#6B4423" stroke-width="1.5"/>
-          <!-- 軟木塞紋路 -->
-          <line x1="87" y1="46" x2="87" y2="54" stroke="#A0713F" stroke-width="1" opacity="0.6"/>
-          <line x1="94" y1="46" x2="94" y2="54" stroke="#A0713F" stroke-width="1" opacity="0.6"/>
-          <line x1="101" y1="46" x2="101" y2="54" stroke="#A0713F" stroke-width="1" opacity="0.6"/>
-          <line x1="108" y1="46" x2="108" y2="54" stroke="#A0713F" stroke-width="1" opacity="0.6"/>
-
-          <!-- 瓶身裡的裝飾植物（背景感） -->
-          <path d="M100 240 Q85 210 88 180 Q92 150 100 130 Q108 150 112 180 Q115 210 100 240Z"
-            fill="#4A7C59" fill-opacity="0.12"/>
-          <path d="M88 200 Q75 185 78 165" stroke="#4A7C59" stroke-width="1.5" fill="none" opacity="0.2" stroke-linecap="round"/>
-          <path d="M112 195 Q125 180 122 160" stroke="#2D4A2A" stroke-width="1.5" fill="none" opacity="0.2" stroke-linecap="round"/>
-
-          <!-- 卷軸 1（左上） -->
-          <!-- 位置：瓶身左側中上 -->
-          <g transform="translate(67, 130) rotate(-15)">
-            <rect x="-16" y="-8" width="32" height="16" rx="3" fill="#D4A847" stroke="#8B5E3C" stroke-width="1.5"/>
-            <ellipse cx="-16" cy="0" rx="5" ry="8" fill="#C49040" stroke="#6B4423" stroke-width="1"/>
-            <ellipse cx="16" cy="0" rx="5" ry="8" fill="#C49040" stroke="#6B4423" stroke-width="1"/>
-            <line x1="-8" y1="-2" x2="8" y2="-2" stroke="#8B5E3C" stroke-width="0.8" opacity="0.5"/>
-            <line x1="-8" y1="2" x2="8" y2="2" stroke="#8B5E3C" stroke-width="0.8" opacity="0.5"/>
+        <!-- 許願瓶 SVG -->
+        <svg viewBox="0 0 100 160" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="許願瓶">
+          <!-- 瓶蓋 -->
+          <rect x="35" y="8" width="30" height="8" fill="#8B5E3C" rx="2"/>
+          <!-- 瓶口 -->
+          <path d="M38 16 Q38 20 50 20 Q62 20 62 16" fill="#A0713F"/>
+          <!-- 主瓶身 -->
+          <path d="M38 20 L38 140 Q38 150 48 150 L52 150 Q62 150 62 140 L62 20" fill="none" stroke="#A0713F" stroke-width="2"/>
+          <!-- 瓶子高光 -->
+          <ellipse cx="42" cy="80" rx="2" ry="20" fill="rgba(255,255,255,0.3)"/>
+          <!-- 捲紙：第一層 -->
+          <g transform="translate(50, 90)">
+            <circle cx="0" cy="0" r="8" fill="#F0D080" opacity="0.8"/>
+            <text x="0" y="0" text-anchor="middle" dy="0.3em" font-size="6" fill="#8B5E3C" font-weight="bold">✨</text>
           </g>
-
-          <!-- 卷軸 2（中央） -->
-          <g transform="translate(100, 175) rotate(5)">
-            <rect x="-16" y="-8" width="32" height="16" rx="3" fill="#D4A847" stroke="#8B5E3C" stroke-width="1.5"/>
-            <ellipse cx="-16" cy="0" rx="5" ry="8" fill="#C49040" stroke="#6B4423" stroke-width="1"/>
-            <ellipse cx="16" cy="0" rx="5" ry="8" fill="#C49040" stroke="#6B4423" stroke-width="1"/>
-            <line x1="-8" y1="-2" x2="8" y2="-2" stroke="#8B5E3C" stroke-width="0.8" opacity="0.5"/>
-            <line x1="-8" y1="2" x2="8" y2="2" stroke="#8B5E3C" stroke-width="0.8" opacity="0.5"/>
-          </g>
-
-          <!-- 卷軸 3（右下） -->
-          <g transform="translate(128, 155) rotate(20)">
-            <rect x="-16" y="-8" width="32" height="16" rx="3" fill="#D4A847" stroke="#8B5E3C" stroke-width="1.5"/>
-            <ellipse cx="-16" cy="0" rx="5" ry="8" fill="#C49040" stroke="#6B4423" stroke-width="1"/>
-            <ellipse cx="16" cy="0" rx="5" ry="8" fill="#C49040" stroke="#6B4423" stroke-width="1"/>
-            <line x1="-8" y1="-2" x2="8" y2="-2" stroke="#8B5E3C" stroke-width="0.8" opacity="0.5"/>
-            <line x1="-8" y1="2" x2="8" y2="2" stroke="#8B5E3C" stroke-width="0.8" opacity="0.5"/>
-          </g>
-
-          <!-- 底部標籤紙 -->
-          <rect x="70" y="220" width="60" height="26" rx="4"
-            fill="#F5EDD8" stroke="#C4956A" stroke-width="1.5" opacity="0.9"/>
-          <text x="100" y="237" text-anchor="middle"
-            font-size="9" fill="#8B5E3C" font-family="serif">願望瓶 ✿</text>
         </svg>
 
-        <!-- 透明點擊區塊（覆蓋在卷軸位置上） -->
-        <!-- 卷軸 1 按鈕 -->
-        <button
-          class="scroll-btn"
-          style="left: 22%; top: 41%;"
-          onclick="openWish(0)"
-          aria-label="打開第一個卷軸"
-        ></button>
+        <!-- 卷軸按鈕：位於瓶子左下方 -->
+        <button class="scroll-btn" style="bottom: 12px; left: -12px;" onclick="openWish()">
+          <svg class="scroll-icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="22" cy="22" r="20" fill="#D4A847" opacity="0.9"/>
+            <path d="M22 16 L22 28 M18 24 L22 28 L26 24" stroke="#8B5E3C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
 
-        <!-- 卷軸 2 按鈕 -->
-        <button
-          class="scroll-btn"
-          style="left: 38%; top: 54%;"
-          onclick="openWish(1)"
-          aria-label="打開第二個卷軸"
-        ></button>
+      </div>
 
-        <!-- 卷軸 3 按鈕 -->
-        <button
-          class="scroll-btn"
-          style="left: 56%; top: 47%;"
-          onclick="openWish(2)"
-          aria-label="打開第三個卷軸"
-        ></button>
+      <!-- 願望彈出視窗 -->
+      <div class="wish-popup" id="wishPopup">
+        <div class="wish-popup-card">
+          <span class="wish-popup-deco">💌</span>
+          <p class="wish-popup-text">
+            2026年，希望能多見面、一起踏遍演唱會現場，留下更多美好回憶 🎵
+          </p>
+          <button class="wish-popup-close" onclick="closeWish()">✨ 收起</button>
+        </div>
+      </div>
 
-      </div><!-- /wish-bottle-wrap -->
+    </div>
 
-      <p style="font-size:0.82rem; color: var(--color-text-muted); text-align:center;">
-        🌿 點擊瓶中的卷軸，看看裡面藏著什麼心願…
-      </p>
-
-    </div><!-- /wish-section-inner -->
   </section>
 
-  <!-- ─── 頁尾 ─── -->
+  <!-- ========================================= -->
   <footer class="site-footer">
-    <p>手工種植於 2026 年的溫室小角落 🌱</p>
-    <p>以 <span>Claude</span> 澆水灌溉，用 <span>GitHub Pages</span> 播種</p>
+    <p>🌿 林中小屋 2026 🌿</p>
+    <p>Made with <span>❤️</span> and <span>☕</span></p>
   </footer>
 
-</div><!-- /#main-content -->
-
-
-<!-- ===================================================
-     願望彈出對話框（共用一個，JS 控制內容）
-     =================================================== -->
-<div id="wish-popup" class="wish-popup" role="dialog" aria-modal="true" aria-labelledby="wish-popup-text">
-  <div class="wish-popup-card">
-    <span class="wish-popup-deco" id="wish-popup-deco" aria-hidden="true">📜</span>
-    <p class="wish-popup-text" id="wish-popup-text"></p>
-    <button class="wish-popup-close" onclick="closeWish()">🍃 收好了</button>
-  </div>
 </div>
 
-
-<!-- ===================================================
-     JavaScript
-     =================================================== -->
 <script>
-// ============================================================
-// 🔑 密碼設定
-// 請把下方 CORRECT_PASSWORD 的值改成你想要的密碼
-// 例如：const CORRECT_PASSWORD = '20260614';
-// ============================================================
-const CORRECT_PASSWORD = '20260614';
+/* ======================================================
+   密碼鎖邏輯
+   ====================================================== */
+const correctPassword = "林中小屋";
 
-// DOM 元素
-const gateOverlay = document.getElementById('gate-overlay');
-const gateInput   = document.getElementById('gate-input');
-const gateError   = document.getElementById('gate-error');
-const mainContent = document.getElementById('main-content');
-
-// 頁面載入時，讓輸入框自動 focus
-window.addEventListener('load', () => {
-  gateInput.focus();
-});
-
-// 按 Enter 鍵也能觸發驗證
-gateInput.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter') checkPassword();
-});
-
-// 密碼驗證函式
 function checkPassword() {
-  const val = gateInput.value.trim();
+  const input = document.getElementById("gate-input");
+  const errorEl = document.getElementById("gate-error");
+  const overlay = document.getElementById("gate-overlay");
+  const mainContent = document.getElementById("main-content");
 
-  if (val === CORRECT_PASSWORD) {
-    // ✅ 密碼正確 → 觸發淡出，顯示主內容
-    gateOverlay.classList.add('fade-out');
-    mainContent.classList.add('revealed');
-    // 淡出後完全移除，避免擋到主頁面
-    gateOverlay.addEventListener('transitionend', () => {
-      gateOverlay.style.display = 'none';
-    }, { once: true });
-  } else {
-    // ❌ 密碼錯誤 → 顯示錯誤訊息 + 搖晃特效
-    gateError.classList.add('show');
-    gateInput.classList.remove('shake'); // 重置（若之前已搖過）
-    // 觸發 reflow 讓動畫能重新播放
-    void gateInput.offsetWidth;
-    gateInput.classList.add('shake');
-    gateInput.value = '';
-    gateInput.focus();
-
-    // 搖晃結束後移除 class
-    gateInput.addEventListener('animationend', () => {
-      gateInput.classList.remove('shake');
-    }, { once: true });
-
-    // 2.5 秒後自動隱藏錯誤訊息
+  if (input.value === correctPassword) {
+    // 密碼正確
+    overlay.classList.add("fade-out");
     setTimeout(() => {
-      gateError.classList.remove('show');
-    }, 2500);
+      mainContent.classList.add("revealed");
+    }, 100);
+  } else {
+    // 密碼錯誤
+    const gateCard = document.querySelector(".gate-card");
+    gateCard.classList.add("shake");
+    errorEl.classList.add("show");
+    setTimeout(() => {
+      gateCard.classList.remove("shake");
+      errorEl.classList.remove("show");
+    }, 600);
+    input.value = "";
   }
 }
 
-// ============================================================
-// 📜 願望瓶卷軸 — 彈出對話框
-// ============================================================
-const wishMessages = [
-  { deco: '✈️', text: '好想去首爾啊！\n想去吃炸雞、逛市場、看夜景…\n列入下次旅遊計畫！' },
-  { deco: '💜', text: '距離我的偶像退伍\n還有 270 幾天…\n倒數中，等你回來！' },
-  { deco: '☕', text: '冰美式咖啡好好喝！\n每天一杯，快樂一整天 🧊' },
-];
+// Enter 鍵提交
+document.addEventListener("DOMContentLoaded", () => {
+  const gateInput = document.getElementById("gate-input");
+  gateInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") checkPassword();
+  });
+});
 
-const wishPopup    = document.getElementById('wish-popup');
-const wishPopupDeco= document.getElementById('wish-popup-deco');
-const wishPopupText= document.getElementById('wish-popup-text');
-
-function openWish(index) {
-  const wish = wishMessages[index];
-  wishPopupDeco.textContent = wish.deco;
-  // 把換行符號轉成 <br>
-  wishPopupText.innerHTML = wish.text.replace(/\n/g, '<br>');
-  wishPopup.classList.add('show');
+/* ======================================================
+   願望瓶彈出邏輯
+   ====================================================== */
+function openWish() {
+  document.getElementById("wishPopup").classList.add("show");
 }
 
 function closeWish() {
-  wishPopup.classList.remove('show');
+  document.getElementById("wishPopup").classList.remove("show");
 }
 
-// 點擊背景也能關閉
-wishPopup.addEventListener('click', (e) => {
-  if (e.target === wishPopup) closeWish();
-});
-
-// Esc 鍵關閉
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') closeWish();
+// 點擊背景關閉
+document.addEventListener("DOMContentLoaded", () => {
+  const popup = document.getElementById("wishPopup");
+  popup.addEventListener("click", (e) => {
+    if (e.target === popup) closeWish();
+  });
 });
 </script>
 
