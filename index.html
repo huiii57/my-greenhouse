@@ -368,17 +368,18 @@ body {
    A. 動漫卡牌區
    ====================================================== */
 .anime-cards-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-  max-width: 540px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  max-width: 520px;
   margin: 0 auto;
   padding: 8px 0 24px;
 }
 
 .anime-card {
   position: relative;
-  width: 100%;
+  width: calc(33.333% - 10px);
   aspect-ratio: 2 / 3;
   border-radius: 10px;
   overflow: hidden;
@@ -387,12 +388,13 @@ body {
   border: 3px solid rgba(245,237,216,0.9);
   background: var(--color-bg-dark);
   transition: transform 0.3s cubic-bezier(.34,1.56,.64,1), box-shadow 0.3s ease;
+  flex-shrink: 0;
 }
 
 .anime-card:hover {
-  transform: scale(1.08);
-  box-shadow: 0 10px 32px rgba(44,32,21,0.28);
-  z-index: 2;
+  transform: scale(1.06) translateY(-4px);
+  box-shadow: 0 12px 32px rgba(44,32,21,0.28);
+  z-index: 10;
 }
 
 .anime-card img {
@@ -425,7 +427,6 @@ body {
   gap: 6px;
 }
 .anime-card-placeholder span { font-size: 1.8rem; }
-
 /* ======================================================
    B. 演唱會日程
    ====================================================== */
@@ -879,44 +880,17 @@ body {
            圖片建議使用直式（寬:高 ≈ 2:3），如 400x600px
            ====================================================== -->
 
-      <div class="anime-card" style="z-index:1;">
-        <img src="images/anime1.jpg" alt="動漫圖 1" />
-      </div>
-
-      <div class="anime-card" style="z-index:2;">
-        <img src="images/anime2.jpg" alt="動漫圖 2" />
-      </div>
-
-      <div class="anime-card" style="z-index:3;">
-        <img src="images/anime3.jpg" alt="動漫圖 3" />
-      </div>
-
-      <div class="anime-card" style="z-index:4;">
-        <img src="images/anime4.jpg" alt="動漫圖 4" />
-      </div>
-
-      <div class="anime-card" style="z-index:5;">
-        <img src="images/anime5.jpg" alt="動漫圖 5" />
-      </div>
-
-      <div class="anime-card" style="z-index:4;">
-        <img src="images/anime6.jpg" alt="動漫圖 6" />
-      </div>
-
-      <div class="anime-card" style="z-index:3;">
-        <img src="images/anime7.jpg" alt="動漫圖 7" />
-      </div>
-
-      <div class="anime-card" style="z-index:2;">
-        <img src="images/anime8.jpg" alt="動漫圖 8" />
-      </div>
-
-      <div class="anime-card" style="z-index:1;">
-        <img src="images/anime9.jpg" alt="動漫圖 9" />
-      </div>
-
-    </div><!-- /anime-cards-container -->
-  </section>
+<div class="anime-cards-container" id="animeCards">
+  <div class="anime-card"><img src="images/anime1.jpg" alt="動漫圖 1" /></div>
+  <div class="anime-card"><img src="images/anime2.jpg" alt="動漫圖 2" /></div>
+  <div class="anime-card"><img src="images/anime3.jpg" alt="動漫圖 3" /></div>
+  <div class="anime-card"><img src="images/anime4.jpg" alt="動漫圖 4" /></div>
+  <div class="anime-card"><img src="images/anime5.jpg" alt="動漫圖 5" /></div>
+  <div class="anime-card"><img src="images/anime6.jpg" alt="動漫圖 6" /></div>
+  <div class="anime-card"><img src="images/anime7.jpg" alt="動漫圖 7" /></div>
+  <div class="anime-card"><img src="images/anime8.jpg" alt="動漫圖 8" /></div>
+  <div class="anime-card"><img src="images/anime9.jpg" alt="動漫圖 9" /></div>
+</div>
 
   <!-- 裝飾分隔 -->
   <div class="vine-divider" aria-hidden="true">
