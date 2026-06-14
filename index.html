@@ -967,6 +967,123 @@ body {
   .section { padding: 44px 16px; }
   .gate-card { padding: 36px 24px 28px; }
 }
+
+
+
+/* ── 照片卡片（仿旅遊手札實體照片）── */
+.photo-card {
+  flex: 0 0 auto;       /* 禁止卡片被壓縮 */
+  display: flex;
+  flex-direction: column;
+  background: #fdf8f0;
+  border: 1px solid rgba(180, 140, 80, 0.35);
+  border-radius: 6px;
+  padding: 10px 10px 8px 10px;
+  /* 仿照片白邊陰影 */
+  box-shadow:
+    0 1px 4px rgba(100, 60, 10, 0.12),
+    0 3px 10px rgba(100, 60, 10, 0.08);
+  transition: box-shadow 0.28s ease, transform 0.28s ease;
+  cursor: default;
+}
+
+/* hover 發光陰影，輕柔不誇張 */
+.photo-card:hover {
+  box-shadow:
+    0 2px 10px rgba(160, 100, 20, 0.22),
+    0 6px 22px rgba(120, 70, 10, 0.15);
+  transform: translateY(-2px);
+}
+
+/* 圖片容器 */
+.photo-card .photo-frame {
+  height: 260px;   /* ← 統一固定高度，橫直混排不變形的關鍵 */
+  overflow: hidden;
+  border-radius: 3px;
+  background: #e8dcc8; /* 圖片載入前的佔位底色 */
+}
+
+/* 橫式照片的寬度提示（讓卡片略寬） */
+.photo-card.landscape .photo-frame {
+  width: 340px;  /* 橫式：寬一些 */
+}
+
+/* 直式照片的寬度提示 */
+.photo-card.portrait .photo-frame {
+  width: 195px;  /* 直式：窄一些 */
+}
+
+/* 照片本體 */
+.photo-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;     /* 填滿容器，不變形，超出則裁切 */
+  object-position: center;
+  display: block;
+  border-radius: 2px;
+  transition: transform 0.40s ease;
+}
+
+.photo-card:hover img {
+  transform: scale(1.03); /* hover 時微微放大，有生氣但不突兀 */
+}
+
+/* 照片說明文字 */
+.photo-card .photo-caption {
+  margin-top: 7px;
+  font-size: 0.75rem;
+  color: #7a5830;
+  font-style: italic;
+  letter-spacing: 0.04em;
+  text-align: center;
+  line-height: 1.45;
+  min-height: 1.2rem; /* 確保無文字時也保留高度 */
+}
+
+/* ── 底部小提示（手機顯示，電腦隱藏）── */
+.japan-scroll-hint {
+  display: none;
+  text-align: center;
+  margin-top: 0.75rem;
+  font-size: 0.72rem;
+  color: #9e7a4a;
+  letter-spacing: 0.05em;
+  opacity: 0.8;
+}
+
+/* ── RWD：手機版 ── */
+@media (max-width: 640px) {
+  .japan-scroll-track {
+    padding: 1rem 1rem 0.9rem 1rem;
+    border-radius: 10px;
+  }
+  .japan-scroll-track::before,
+  .japan-scroll-track::after {
+    width: 12px;
+    border-radius: 6px;
+  }
+  .japan-scroll-track::before { left:  -6px; }
+  .japan-scroll-track::after  { right: -6px; }
+
+  .japan-photo-section .section-header h2 {
+    font-size: 1.2rem;
+  }
+  .japan-photo-section .section-header h2::before,
+  .japan-photo-section .section-header h2::after {
+    width: 1.4rem;
+  }
+
+  .photo-card .photo-frame {
+    height: 200px; /* 手機縮小一點 */
+  }
+  .photo-card.landscape .photo-frame { width: 260px; }
+  .photo-card.portrait  .photo-frame { width: 150px; }
+
+  .japan-scroll-hint {
+    display: block; /* 手機才顯示「左右滑動」提示 */
+  }
+}   
+   
 </style>
 </head>
 <body>
@@ -1047,6 +1164,67 @@ body {
     <svg width="40" height="20" viewBox="0 0 40 20"><path d="M2 10 Q10 2 20 10 Q30 18 38 10" stroke="#A8C5A0" stroke-width="1.5" fill="none"/></svg>
   </div>
 
+   <section class="japan-photo-section" aria-label="一月日本旅遊精華照片">
+  <!-- 標題區 -->
+  <div class="section-header">
+    <h2>✿ 一月的日本，暖冬小旅行 ✿</h2>
+    <p>隨手記錄的片刻 · 2026 January · Japan</p>
+  </div>
+
+  <!-- 捲軸容器：仿羊皮紙長廊 -->
+  <div class="japan-scroll-track">
+    <!-- 橫向照片列（滑鼠滾輪 / 手指左右滑皆可）-->
+    <div class="japan-photo-strip" id="japanPhotoStrip">
+
+      <!-- ─── 照片卡片 ①：橫式 ─── -->
+      <div class="photo-card landscape">
+        <div class="photo-frame">
+          <!--
+            ↓ 把 src 換成你自己的照片路徑
+              例如：src="./images/japan1.jpg"
+              或 GitHub 相對路徑：src="images/japan1.jpg"
+          -->
+          <img src="images/japan1.jpg" alt="日本旅遊照片一">
+        </div>
+        <p class="photo-caption">滑雪滑雪</p>
+      </div>
+
+      <!-- ─── 照片卡片 ②：直式 ─── -->
+      <div class="photo-card portrait">
+        <div class="photo-frame">
+          <img src=""images/japan2.jpg" alt="日本旅遊照片二">
+        </div>
+        <p class="photo-caption">堆雪人超好玩欸</p>
+      </div>
+
+      <!-- ─── 照片卡片 ③：橫式 ─── -->
+      <div class="photo-card landscape">
+        <div class="photo-frame">
+          <img src="images/japan3.jpg" alt="日本旅遊照片三">
+        </div>
+        <p class="photo-caption">如果不是和大家一起看,我還真不會看這種紀錄片</p>
+      </div>
+
+      <!-- ─── 照片卡片 ④：直式 ─── -->
+      <div class="photo-card portrait">
+        <div class="photo-frame">
+          <img src="images/japan4.jpg" alt="日本旅遊照片四">
+        </div>
+        <p class="photo-caption">這個小強碟子在中山區某日式蕎麥麵也有</p>
+      </div>
+
+      <!--
+        ★ 想加更多照片？複製上面任一個 <div class="photo-card ..."> 區塊，
+          改 class 為 landscape（橫式）或 portrait（直式），
+          換掉 src 和 alt 與 caption 文字即可。
+      -->
+    </div><!-- /japan-photo-strip -->
+  </div><!-- /japan-scroll-track -->
+
+  <!-- 手機版提示（電腦不顯示）-->
+  <p class="japan-scroll-hint">← 左右滑動，看更多照片 →</p>
+
+</section>
   <!-- =========================================
        A. 看了一堆動漫
        ========================================= -->
