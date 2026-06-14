@@ -1558,5 +1558,21 @@ cards.forEach((card, i) => {
 })();
 </script>
 
+<script>
+(function () {
+  var strip = document.getElementById('japanPhotoStrip');
+  if (!strip) return;
+
+  /* 讓桌機滑鼠「垂直滾輪」自動轉換為「水平捲動」
+     手機手指滑動不受影響（touch events 原生就是水平的）*/
+  strip.addEventListener('wheel', function (e) {
+    /* 如果使用者原本就在水平滾（shift+滾輪 / 橫向觸控板），不攔截 */
+    if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+    e.preventDefault();
+    strip.scrollLeft += e.deltaY * 1.2; /* 1.2 為速度係數，可調整 */
+  }, { passive: false });
+})();
+</script>
+   
 </body>
 </html>
